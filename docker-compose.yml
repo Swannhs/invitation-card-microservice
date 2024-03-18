@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres
+    environment:
+      POSTGRES_USER: ${EVENT_API_DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${EVENT_API_DATABASE_PASSWORD}
+      PGDATA: /data/postgres
+    volumes:
+      - ./data/postgres:/data/postgres
+      - ./database/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    env_file:
+      - .env
+    restart: always
+    network_mode: "host"

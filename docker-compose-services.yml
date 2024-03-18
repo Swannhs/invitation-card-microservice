@@ -1,0 +1,21 @@
+services:
+  event-api:
+    container_name: event-api
+    image: event-api
+    build:
+      context: event-api
+      dockerfile: Dockerfile
+    environment:
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
+      SPRING_APPLICATION_PORT: ${EVENT_API_PORT}
+      SPRING_DATASOURCE_URL: ${EVENT_API_DATABASE_URL}
+      SPRING_DATASOURCE_USERNAME: ${EVENT_API_DATABASE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${EVENT_API_DATABASE_PASSWORD}
+    env_file:
+      - .env
+    volumes:
+      - ./event-api:/app
+      - ~/.m2:/root/.m2
+    depends_on:
+      - postgres
+    network_mode: "host"
