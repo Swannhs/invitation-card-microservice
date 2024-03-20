@@ -19,3 +19,13 @@ services:
     depends_on:
       - postgres
     network_mode: "host"
+
+  event-management-api:
+    container_name: event-management-api
+    image: event-management-api
+    build:
+      context: event-management-api
+      dockerfile: Dockerfile
+    volumes:
+      - ./event-management-api:/app
+    network_mode: "host"
